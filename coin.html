@@ -58,64 +58,109 @@
     </style>
 </head>
 <body>
+
     <div class="countdown" id="countdown">Loading...</div>
-    <a href="https://x.com/MemCoinDestruct" target="_blank" class="proceed-link">Proceed If You Dare</a>
+    <a href="https://x.com/apesitcoin/status/1849723546513097188" target="_blank" class="proceed-link">Proceed If You Dare</a>
     <script>
+	
+	 /*
+    ######################################################
+    #                                                    #
+    #   💀 You've discovered the hidden scroll... 💀     #
+    #                                                    #
+    #   Welcome, seeker of secrets.                      #
+    #                                                    #
+    #   The truth about this coin's fate lies buried     #
+    #   somewhere in the randomness. Will it survive?    #
+    #   Or will it fade to nothingness when you least    #
+    #   expect it?                                       #
+    #                                                    #
+    #   Rumors say... when the end draws near, a lucky   #
+    #   few may find airdropped fragments of the coin's  #
+    #   essence. Only time will tell. Stay vigilant.     #
+    #                                                    #
+    #   Until then, enjoy the mystery.                   #
+    #                                                    #
+    #   - Sitashi Nakamoto                               #
+    ######################################################
+    */
+	
         function startRandomCountdownTimer() {
-            const countdownElement = document.getElementById('countdown');
-            const phrases = [
-                'Marketcap is shrinking rapidly...',
-                'Liquidity drain detected!',
-                'Circulating supply is vanishing...',
-                'Holders are fleeing...',
-                'Price volatility reaching dangerous levels...',
-                'Whales are on the move...',
-                'Time is running out, will you survive?',
-                'The final countdown has begun...'
-            ];
+    const countdownElement = document.getElementById('countdown');
+    const phrases = [
+        'Marketcap is shrinking rapidly...',
+        'Liquidity drain detected!',
+        'Circulating supply is vanishing...',
+        'Holders are fleeing...',
+        'Price volatility reaching dangerous levels...',
+        'Whales are on the move...',
+        'Time is running out, will you survive?',
+        'The final countdown has begun...'
+    ];
 
-            let targetDate = new Date();
-            targetDate.setDate(targetDate.getDate() + 1); // Set target to 24 hours from now
+    let targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 1);
 
-            function updateCountdown() {
-                const now = new Date();
-                const timeDifference = targetDate - now;
-
-                if (timeDifference <= 0) {
-                    countdownElement.textContent = '00:00:00:00';
-                    clearInterval(interval);
-                    return;
-                }
-
-                let days = Math.floor(Math.random() * 667); // Random value between 0 and 666
-                let hours = Math.floor(Math.random() * 24); // Random value between 0 and 23
-                let minutes = Math.floor(Math.random() * 60); // Random value between 0 and 59
-                let seconds = Math.floor(Math.random() * 60); // Random value between 0 and 59
-
-                let showUnstable = Math.random() > 0.75; // Decreased probability for instability
-                let countdownText = `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-                if (showUnstable) {
-                    countdownText = countdownText.split('').map(char => {
-                        if (Math.random() > 0.8 && char !== ':') {
-                            return ['@', '#', '$', '%', '&', '*', '?'][Math.floor(Math.random() * 7)];
-                        }
-                        return char;
-                    }).join('');
-                }
-                countdownElement.textContent = countdownText;
+    function simulateTypingEffect(text) {
+        let i = 0;
+        const interval = setInterval(() => {
+            let currentText = text.slice(0, i).split('').map(char => {
+                return Math.random() > 0.8 && char !== ' ' ? String.fromCharCode(char.charCodeAt(0) + (Math.random() > 0.5 ? 1 : -1)) : char;
+            }).join('');
+            countdownElement.textContent = currentText;
+            i++;
+            if (i > text.length) {
+                clearInterval(interval);
             }
+        }, 100); 
+    }
 
-            updateCountdown();
-            const interval = setInterval(() => {
-                updateCountdown();
-                displayRandomPhantomText();
-            }, 2000); // Update countdown every 2 seconds
+    function updateCountdown() {
+        const now = new Date();
+        const timeDifference = targetDate - now;
+
+        if (timeDifference <= 0) {
+            countdownElement.textContent = '00:00:00:00';
+            clearInterval(interval);
+            return;
         }
+
+        let days = Math.floor(Math.random() * 667); 
+        let hours = Math.floor(Math.random() * 24); 
+        let minutes = Math.floor(Math.random() * 60); 
+        let seconds = Math.floor(Math.random() * 60); 
+
+        let showUnstable = Math.random() > 0.75; 
+        let countdownText = `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        if (showUnstable) {
+            countdownText = countdownText.split('').map(char => {
+                if (Math.random() > 0.8 && char !== ':') {
+                    return ['@', '#', '$', '%', '&', '*', '?'][Math.floor(Math.random() * 7)];
+                }
+                return char;
+            }).join('');
+        }
+
+        
+        if (Math.random() > 0.8) { 
+            simulateTypingEffect('SDC Protocol is initializing...');
+        } else {
+            countdownElement.textContent = countdownText;
+        }
+    }
+
+    updateCountdown();
+    const interval = setInterval(() => {
+        updateCountdown();
+        displayRandomPhantomText();
+    }, 2000); 
+}
+
 
         function loopIntroduction() {
             const countdownElement = document.getElementById('countdown');
-            const loadingDuration = Math.floor(Math.random() * 1000) + 500; // Random duration between 0.5s to 1.5s
-            const messageDuration = Math.floor(Math.random() * 3000) + 2000; // Random duration between 2s to 5s
+            const loadingDuration = Math.floor(Math.random() * 1000) + 500; 
+            const messageDuration = Math.floor(Math.random() * 3000) + 2000; 
             const phrases = [
                 'Loading...',
                 'Self Destruct in:',
@@ -137,7 +182,7 @@
                             startRandomCountdownTimer();
                         }, messageDuration);
                     }
-                }, 100); // Update every 100ms to simulate letter changing
+                }, 100); 
             }, loadingDuration);
         }
 
@@ -159,24 +204,24 @@
             phantomText.className = 'phantom-text';
             phantomText.textContent = randomPhrase;
 
-            // Set random position
+            
             phantomText.style.top = Math.floor(Math.random() * 80) + '%';
             phantomText.style.left = Math.floor(Math.random() * 80) + '%';
 
             body.appendChild(phantomText);
 
-            // Show the text
+            
             setTimeout(() => {
                 phantomText.style.opacity = 1;
             }, 100);
 
-            // Hide and remove the text
+            
             setTimeout(() => {
                 phantomText.style.opacity = 0;
                 setTimeout(() => {
                     body.removeChild(phantomText);
                 }, 2000);
-            }, Math.floor(Math.random() * 3000) + 2000); // Display duration between 2s to 5s
+            }, Math.floor(Math.random() * 3000) + 2000); 
         }
 
         window.onload = function() {
@@ -185,4 +230,3 @@
     </script>
 </body>
 </html>
-
