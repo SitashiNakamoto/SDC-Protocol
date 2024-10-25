@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Destructing Memecoin</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #000;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            flex-direction: column;
+            position: relative;
+        }
+        .countdown {
+            font-size: 6em;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.4);
+            animation: flicker 2s infinite alternate;
+        }
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.4);
+            }
+            20%, 24%, 55% {
+                text-shadow: 0 0 5px rgba(255, 215, 0, 0.6), 0 0 10px rgba(255, 215, 0, 0.4), 0 0 15px rgba(255, 215, 0, 0.2);
+            }
+        }
+        .phantom-text {
+            position: absolute;
+            font-size: 1.5em;
+            color: rgba(255, 255, 255, 0.3);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        a.proceed-link {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.5em;
+            color: #ffd700;
+            text-decoration: none;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            transition: opacity 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+            margin-top: 20px;
+        }
+        a.proceed-link:hover {
+            text-shadow: 0 0 30px red, 0 0 60px red, 0 0 90px red;
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown" id="countdown">Loading...</div>
+    <a href="https://x.com/MemCoinDestruct" target="_blank" class="proceed-link">Proceed If You Dare</a>
+    <script>
+        function startRandomCountdownTimer() {
+            const countdownElement = document.getElementById('countdown');
+            const phrases = [
+                'Marketcap is shrinking rapidly...',
+                'Liquidity drain detected!',
+                'Circulating supply is vanishing...',
+                'Holders are fleeing...',
+                'Price volatility reaching dangerous levels...',
+                'Whales are on the move...',
+                'Time is running out, will you survive?',
+                'The final countdown has begun...'
+            ];
+
+            let targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 1); // Set target to 24 hours from now
+
+            function updateCountdown() {
+                const now = new Date();
+                const timeDifference = targetDate - now;
+
+                if (timeDifference <= 0) {
+                    countdownElement.textContent = '00:00:00:00';
+                    clearInterval(interval);
+                    return;
+                }
+
+                let days = Math.floor(Math.random() * 667); // Random value between 0 and 666
+                let hours = Math.floor(Math.random() * 24); // Random value between 0 and 23
+                let minutes = Math.floor(Math.random() * 60); // Random value between 0 and 59
+                let seconds = Math.floor(Math.random() * 60); // Random value between 0 and 59
+
+                let showUnstable = Math.random() > 0.75; // Decreased probability for instability
+                let countdownText = `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                if (showUnstable) {
+                    countdownText = countdownText.split('').map(char => {
+                        if (Math.random() > 0.8 && char !== ':') {
+                            return ['@', '#', '$', '%', '&', '*', '?'][Math.floor(Math.random() * 7)];
+                        }
+                        return char;
+                    }).join('');
+                }
+                countdownElement.textContent = countdownText;
+            }
+
+            updateCountdown();
+            const interval = setInterval(() => {
+                updateCountdown();
+                displayRandomPhantomText();
+            }, 2000); // Update countdown every 2 seconds
+        }
+
+        function loopIntroduction() {
+            const countdownElement = document.getElementById('countdown');
+            const loadingDuration = Math.floor(Math.random() * 1000) + 500; // Random duration between 0.5s to 1.5s
+            const messageDuration = Math.floor(Math.random() * 3000) + 2000; // Random duration between 2s to 5s
+            const phrases = [
+                'Loading...',
+                'Self Destruct in:',
+            ];
+
+            countdownElement.textContent = phrases[0];
+            setTimeout(() => {
+                let i = 0;
+                const interval = setInterval(() => {
+                    let currentText = phrases[1].split('').map(char => {
+                        return Math.random() > 0.5 && char !== ' ' ? String.fromCharCode(char.charCodeAt(0) + (Math.random() > 0.5 ? 1 : -1)) : char;
+                    }).join('');
+                    countdownElement.textContent = currentText;
+                    i++;
+                    if (i > 10) {
+                        clearInterval(interval);
+                        countdownElement.textContent = phrases[1];
+                        setTimeout(() => {
+                            startRandomCountdownTimer();
+                        }, messageDuration);
+                    }
+                }, 100); // Update every 100ms to simulate letter changing
+            }, loadingDuration);
+        }
+
+        function displayRandomPhantomText() {
+            const phrases = [
+                'Marketcap is shrinking rapidly...',
+                'Liquidity drain detected!',
+                'Circulating supply is vanishing...',
+                'Holders are fleeing...',
+                'Price volatility reaching dangerous levels...',
+                'Whales are on the move...',
+                'Time is running out, will you survive?',
+                'The final countdown has begun...'
+            ];
+            const body = document.body;
+            const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+
+            const phantomText = document.createElement('div');
+            phantomText.className = 'phantom-text';
+            phantomText.textContent = randomPhrase;
+
+            // Set random position
+            phantomText.style.top = Math.floor(Math.random() * 80) + '%';
+            phantomText.style.left = Math.floor(Math.random() * 80) + '%';
+
+            body.appendChild(phantomText);
+
+            // Show the text
+            setTimeout(() => {
+                phantomText.style.opacity = 1;
+            }, 100);
+
+            // Hide and remove the text
+            setTimeout(() => {
+                phantomText.style.opacity = 0;
+                setTimeout(() => {
+                    body.removeChild(phantomText);
+                }, 2000);
+            }, Math.floor(Math.random() * 3000) + 2000); // Display duration between 2s to 5s
+        }
+
+        window.onload = function() {
+            loopIntroduction();
+        };
+    </script>
+</body>
+</html>
+
